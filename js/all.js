@@ -146,14 +146,25 @@ function renderC3(myData) {//利用搜尋筆數部份下拉選單change時,就�
     console.log(newData);
   })
 
+  let options = {
+    percentageInnerCutout: 10
+  };
+
   let chart = c3.generate({
     bindto: "#chart",
     data: {
       columns: newData,
       type: 'donut',
+
+      colors: {
+        台北: '#26C0C7',
+        台中: '#5151D3',
+        高雄: '#E68618'
+      }
     },
     donut: {
-      title: "套票地區比重"
+      title: "套票地區比重",
+      width: 15,//更改圓弧的寬度
     }
   });
 
