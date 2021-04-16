@@ -171,7 +171,78 @@ function renderC3(myData) {//利用搜尋筆數部份下拉選單change時,就�
 
 }
 
+//表單驗證Validate.js
+const constraints = {
+  "套票名稱": {
+    presence: {
+      message: "是必填欄位"
+    },
+  },
+  "圖片網址": {
+    presence: {
+      message: "是必填欄位"
+    },
+    url: {
+      schemes: ["http", "https"],
+      message: "必須是正確的網址"
+    }
+  },
+  "景點地區": {
+    presence: {
+      message: "是必填欄位"
+    },
+  },
+  "套票金額": {
+    presence: {
+      message: "是必填欄位"
+    },
+    numericality: {
+      greaterThan: 0,
+      message: "必須大於 0"
+    }
+  },
+  "套票組數": {
+    presence: {
+      message: "是必填欄位"
+    },
+    numericality: {
+      greaterThan: 0,
+      message: "必須大於 0"
+    }
+  },
+  "套票星級": {
+    presence: {
+      message: "是必填欄位"
+    },
+    numericality: {
+      greaterThanOrEqualTo: 1,
+      lessThanOrEqualTo: 10,
+      message: "必須符合 1-10 的區間"
+    }
+  },
+  "套票描述": {
+    presence: {
+      message: "是必填欄位"
+    },
+  },
+}
 
+const form = document.querySelector("#addTicket-form");
+const inputs = document.querySelectorAll("input[type=text],input[type=number],select,textarea");
+inputs.forEach((item) => {
 
+  item.addEventListener("change", function () {
+    document.querySelector(`[data-message=${item.name}]`).textContent = '';;
+    let errors = validate(form, constraints);
+    //console.log(errors)
+    //呈現在畫面上
+    if (errors) {
+      Object.keys(errors).forEach(function (keys) {
+        //console.log(keys);
+        document.querySelector(`[data-message=${keys}]`).textContent = errors[keys]
+      })
+    }
+  });
+});
 
 
